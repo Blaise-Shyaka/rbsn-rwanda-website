@@ -1,0 +1,25 @@
+---
+enable: true
+title: "Our Team"
+subtitle: >
+          RBSN Rwanda Committee 2025 - 2026
+investor:
+  - name: "Jean De Dieu HABIYAKARE"
+    post: "President"
+    image: "images/team/president.jpeg"
+  - name: "Divine UWONKUNDA"
+    post: "Vice President"
+    image: "images/team/vice-president.jpeg"
+  - name: "Olivier MUDAHUNGA INGABIRE"
+    post: "Communication Officer"
+    image: "images/team/communication-officer.jpeg"
+  - name: "Alda INEZA SINGIZWA"
+    post: "Treasurer"
+    image: "images/team/treasurer.jpeg"
+  - name: "Asterie DUSHIMUMUBYEYI"
+    post: "Academic Coordinator"
+    image: "images/team/academic-coordinator.jpeg"
+  - name: "Liliane MUTIMUKEYE"
+    post: "General Secretary"
+    image: "images/team/general-secretary.jpeg"
+---

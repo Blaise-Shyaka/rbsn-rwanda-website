@@ -1,0 +1,14 @@
+---
+title : "Take a Look At us In Action"
+enable: true
+subtitle: >
+        Discover what makes our community vibrant and inspiring. From hosting thought-provoking talks with public speakers and industry leaders, to exploring cutting-edge laboratories and exchanging ideas that spark innovation. Our students are always on the move, learning, creating, and leading.
+description: Images of our Coworking Space
+galleryImage: 
+ - image: "images/gallery/gallery01.jpeg"
+ - image: "images/gallery/gallery02.jpeg"
+ - image: "images/gallery/gallery03.jpeg"
+ - image: "images/gallery/gallery04.jpeg"
+ - image: "images/gallery/gallery05.jpeg"
+ - image: "images/gallery/gallery06.jpeg"
+---

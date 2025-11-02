@@ -1,0 +1,11 @@
+---
+enable: true
+title: "Featured In"
+clients:
+  - image: "images/client/fda-logo.png"
+  - image: "images/client/rab-logo.png"
+  - image: "images/client/rbc-logo.png"
+  - image: "images/client/rema-logo.png"
+  - image: "images/client/nirda.jpeg"
+  - image: "images/client/ughe.png"
+---

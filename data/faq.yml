@@ -1,0 +1,33 @@
+---
+enable: true
+title: "Frequently Asked Questions"
+faq:
+  - question: "Q. What is RBSN?"
+    answer: >
+            RBSN (Rwanda Biotechnology Students Network) is a student-driven organization uniting young scientists from across Rwanda. We empower students to explore biotechnology, connect through science, and innovate for a healthier and more sustainable future.
+  - question: "Q. What is the main goal of RBSN?"
+    answer: >
+            Our goal is to build a generation of biotechnology leaders who use knowledge, creativity, and collaboration to address real-world challenges in Rwanda and beyond.
+  - question: "Q. Who can join RBSN?"
+    answer: >
+            Any student with a passion for science, biotechnology, or innovation can join  whether in university, secondary school, or a science club. What matters most is curiosity, commitment, and the desire to make a difference.
+  - question: "Q. Why should I join RBSN?"
+    answer: >
+            Becoming a member gives you access to a national network of inspiring students and professionals, along with opportunities to participate in workshops, mentorship programs, hands-on experiences, research, leadership development, and innovative projects that create real impact.
+  - question: "Q. How can I become a member?"
+    answer: >
+            Simply fill out the RBSN membership form (available online or through your institutional representative). Membership is open all year, and every new member is warmly welcomed into the RBSN family.
+  - question: "Q. How can lecturers or institutions collaborate with RBSN?"
+    answer: >
+            We value strong academic partnerships. Lecturers and institutions can get involved by mentoring students and research projects, hosting scientific events or workshops, and supporting RBSN programs and initiatives. Together, we bridge academia and innovation.
+  - question: "Q. What makes RBSN unique?"
+    answer: >
+            RBSN is powered by youth leadership and scientific passion. We don’t just study biotechnology  we apply it. Our uniqueness lies in our unity, creativity, and the belief that students can drive meaningful change through science.
+  - question: "Q. How can organizations or sponsors partner with RBSN?"
+    answer: >
+            Organizations and partners can support RBSN by funding programs, co-hosting events, offering mentorship, or collaborating on innovation and outreach initiatives. Each partnership strengthens Rwanda’s future in science and technology.
+  - question: "Q. How can I contact RBSN?"
+    answer: >
+            You can reach us through all major platforms, We’re always open to new ideas, collaborations, and bright minds ready to lead change.
+
+---
