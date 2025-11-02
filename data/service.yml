@@ -1,0 +1,27 @@
+---
+enable: true
+title: "Activities & Events"
+subtitle: >
+          We are a knowledge hub for RBSN members, promoting learning, research, and professional growth.
+services:
+  - name: "Public Talks"
+    description: >
+                We invite professionals from biotechnology, biochemistry, and related industries to share insights.
+    icon: "ti-microphone-alt"
+  - name: "Workshops & Training"
+    description: >
+                We provide hands-on experience in laboratory techniques, bioinformatics, and data analysis.
+    icon: "ti-light-bulb"
+  - name: "Scientific Discussions"
+    description: >
+                We engage members in sientific article discussions, debates, and research presentations.
+    icon: "ti-rocket"
+  - name: "Career Development"
+    description: >
+                We provide sessions on resume building, internship opportunities, and mentorship from industry leaders.
+    icon: "ti-flag-alt"
+  - name: "Competitions & Quizzes"
+    description: >
+                We provide interactive quizzes and challenges to reinforce learning in a fun way. 
+    icon: "ti-medall-alt"
+---

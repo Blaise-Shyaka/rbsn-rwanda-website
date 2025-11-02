@@ -1,0 +1,66 @@
+baseURL = 'https://cohub-hugo.netlify.app'
+languageCode = 'en-us'
+# paginate = 6
+theme= "coHub"
+title = 'RBSN | Rwanda Biotechnology Students Network'
+ 
+
+  # Main Menu
+  [[menu.Main]]
+  name = "Gallery"
+  url= "#gallery"
+  weight = 1
+  [[menu.Main]]
+  name = "Activities"
+  url= "#activities"
+  weight = 5
+  [[menu.Main]]
+  name = "About"
+  url= "/about/"
+  weight = 3
+  [[menu.Main]]
+  name = "Blog"
+  url= "#blog"
+  weight = 4
+  [[menu.Main]]
+  name = "FAQ"
+  url= "#faq"
+  weight = 6
+
+[params]
+  # theme_overrides = "css/overrides.css"
+  aboutPageURL = "blog"
+  contactLink = "contact"
+  copyright = "© {year} <a href=\"https://rbsnrwanda.com/\" target=\"_blank\">RBSN Rwanda</a>"
+  fabFormURL =  "https://fabform.io/f/u00kv3-"
+  googleAnalytics = "G-JZ95FEWF9K"
+  logo = "images/logo-white1.png"
+  footerlogo = "images/logo-white1.png"
+  footerDescription = "At RBSN, curiosity is the beginning of innovation  and your questions are the seeds of discovery."
+
+  [params.address]
+  address = "KN 7 Ave., Kigali <br>  University of Rwanda, College of Science and Technology"
+  email = "rwandabiotechnologystudentnet@gmail.com"
+  openingDesc = "Give us a call or drop by anytime, we endeavour to answer all enquiries within 24 hours on business days."
+  openingHours = "We are open from 7am — 7pm week days."
+
+  [params.map]
+  APIkey = "AIzaSyC9rV6yesIygoVKTD6QLf_iCa9eiIIHqZ0"
+  latitude = "45.4502528"
+  longitude = "-122.783407"
+  pinImage = "images/pin.png"
+
+  # Social icons
+  [[params.social]]
+  icon = "ti-instagram"
+  url = "https://www.instagram.com/rbsn_rwanda"
+  weight = 1
+  [[params.social]]
+  icon = "ti-linkedin"
+  url = "https://www.linkedin.com/in/rwanda-biotechnology-students-network-a701702a5"
+  weight = 2
+
+  [pagination]
+    pagerSize = 6
+  
+  
