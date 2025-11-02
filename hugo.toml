@@ -34,8 +34,8 @@ title = 'RBSN | Rwanda Biotechnology Students Network'
   copyright = "© {year} <a href=\"https://rbsnrwanda.com/\" target=\"_blank\">RBSN Rwanda</a>"
   fabFormURL =  "https://fabform.io/f/u00kv3-"
   googleAnalytics = "G-JZ95FEWF9K"
-  logo = "images/logo-white1.png"
-  footerlogo = "images/logo-white1.png"
+  logo = "images/logo.png"
+  footerlogo = "images/logo.png"
   footerDescription = "At RBSN, curiosity is the beginning of innovation  and your questions are the seeds of discovery."
 
   [params.address]
