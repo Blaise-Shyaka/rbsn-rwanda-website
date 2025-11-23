@@ -1,0 +1,118 @@
+name: Sync Airtable to Blog
+
+on:
+  schedule:
+    - cron: '*/3 * * * *'  # Runs daily at midnight UTC
+  workflow_dispatch:  # Allows manual triggering
+
+jobs:
+  sync-content:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      
+      - name: Fetch and process Airtable data
+        env:
+          AIRTABLE_API_KEY: ${{ secrets.AIRTABLE_API_KEY }}
+          AIRTABLE_BASE_ID: ${{ secrets.AIRTABLE_BASE_ID }}
+        run: |
+          node << 'EOF'
+          const https = require('https');
+          const fs = require('fs');
+          const path = require('path');
+
+          const AIRTABLE_API_KEY = process.env.AIRTABLE_API_KEY;
+          const AIRTABLE_BASE_ID = process.env.AIRTABLE_BASE_ID;
+          const TABLES = ['Blog', 'Announcements'];
+
+          function toKebabCase(str) {
+            return str
+              .toLowerCase()
+              .replace(/[^a-z0-9]+/g, '-')
+              .replace(/^-+|-+$/g, '');
+          }
+
+          function fetchAirtable(tableName) {
+            return new Promise((resolve, reject) => {
+              const options = {
+                hostname: 'api.airtable.com',
+                path: `/v0/${AIRTABLE_BASE_ID}/${encodeURIComponent(tableName)}?filterByFormula={published}='Approved'&sort[0][field]=created&sort[0][direction]=desc`,
+                method: 'GET',
+                headers: {
+                  'Authorization': `Bearer ${AIRTABLE_API_KEY}`
+                }
+              };
+
+              https.get(options, (res) => {
+                let data = '';
+                res.on('data', (chunk) => data += chunk);
+                res.on('end', () => {
+                  if (res.statusCode === 200) {
+                    resolve(JSON.parse(data));
+                  } else {
+                    reject(new Error(`Failed to fetch ${tableName}: ${res.statusCode}`));
+                  }
+                });
+              }).on('error', reject);
+            });
+          }
+
+          async function processRecords() {
+            const contentDir = path.join(process.cwd(), 'content', 'blog');
+            
+            // Create directory if it doesn't exist
+            if (!fs.existsSync(contentDir)) {
+              fs.mkdirSync(contentDir, { recursive: true });
+            }
+
+            for (const table of TABLES) {
+              try {
+                console.log(`Fetching records from ${table}...`);
+                const response = await fetchAirtable(table);
+                
+                for (const record of response.records) {
+                  const title = record.fields.title || record.fields.Title;
+                  const content = record.fields.content || record.fields.Content;
+                  
+                  if (!title || !content) {
+                    console.log(`Skipping record without title or content in ${table}`);
+                    continue;
+                  }
+
+                  const fileName = `${toKebabCase(title)}.md`;
+                  const filePath = path.join(contentDir, fileName);
+                  
+                  // Skip if file already exists
+                  if (fs.existsSync(filePath)) {
+                    console.log(`Skipping existing file: ${fileName}`);
+                    continue;
+                  }
+                  
+                  fs.writeFileSync(filePath, content, 'utf8');
+                  console.log(`Created: ${fileName}`);
+                }
+              } catch (error) {
+                console.error(`Error processing ${table}:`, error.message);
+              }
+            }
+          }
+
+          processRecords().catch(console.error);
+          EOF
+      
+      - name: Commit and push changes
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add content/blog/
+          git diff --staged --quiet || git commit -m "Update blog content from Airtable [skip ci]"
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
