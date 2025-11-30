@@ -12,6 +12,9 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          persist-credentials: true
         
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -20,7 +23,7 @@ jobs:
       
       - name: Fetch and process Airtable data
         env:
-          AIRTABLE_API_KEY: ${{ secrets.AIRTABLE_API_KEY }}
+          AIRTABLE_PAT: ${{ secrets.AIRTABLE_PAT }}
           AIRTABLE_BASE_ID: ${{ secrets.AIRTABLE_BASE_ID }}
         run: |
           node << 'EOF'
@@ -28,9 +31,9 @@ jobs:
           const fs = require('fs');
           const path = require('path');
 
-          const AIRTABLE_API_KEY = process.env.AIRTABLE_API_KEY;
+          const AIRTABLE_PAT = process.env.AIRTABLE_PAT;
           const AIRTABLE_BASE_ID = process.env.AIRTABLE_BASE_ID;
-          const TABLES = ['Blogs', 'Announcements'];
+          const TABLES = ['Blog', 'Announcements'];
 
           function toKebabCase(str) {
             return str
@@ -46,7 +49,7 @@ jobs:
                 path: `/v0/${AIRTABLE_BASE_ID}/${encodeURIComponent(tableName)}?filterByFormula={Status}='Approved'`,
                 method: 'GET',
                 headers: {
-                  'Authorization': `Bearer ${AIRTABLE_API_KEY}`
+                  'Authorization': `Bearer ${AIRTABLE_PAT}`
                 }
               };
 
@@ -108,11 +111,24 @@ jobs:
           EOF
       
       - name: Commit and push changes
+        id: commit
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           git add content/blog/
-          git diff --staged --quiet || git commit -m "Update blog content from Airtable [skip ci]"
-          git push
+          if git diff --staged --quiet; then
+            echo "changes=false" >> $GITHUB_OUTPUT
+          else
+            git commit -m "Update blog content from Airtable"
+            git push
+            echo "changes=true" >> $GITHUB_OUTPUT
+          fi
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Trigger build and deploy
+        if: steps.commit.outputs.changes == 'true'
+        uses: peter-evans/repository-dispatch@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          event-type: content-updated
