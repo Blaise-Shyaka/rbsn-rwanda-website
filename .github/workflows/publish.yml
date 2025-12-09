@@ -103,8 +103,8 @@ jobs:
                 const response = await fetchAirtable(table);
                 
                 // Determine image directory based on table
-                const imageDir = table === 'Blog' ? 'static/images/blog' : 'static/images/announcements';
-                const imageDirPath = path.join(process.cwd(), imageDir);
+                const imageDir = table === 'Blogs' ? 'images/blog' : 'images/announcements';
+                const imageDirPath = path.join(process.cwd(), 'static', imageDir);
                 
                 if (!fs.existsSync(imageDirPath)) {
                   fs.mkdirSync(imageDirPath, { recursive: true });
