@@ -2,7 +2,7 @@ name: Sync Airtable to Blog
 
 on:
   schedule:
-    - cron: '*/3 * * * *'  # Runs daily at midnight UTC
+    - cron: '*/10 * * * *'  # Runs daily at midnight UTC
   workflow_dispatch:  # Allows manual triggering
 
 jobs:
@@ -30,6 +30,7 @@ jobs:
           const https = require('https');
           const fs = require('fs');
           const path = require('path');
+          const crypto = require('crypto');
 
           const AIRTABLE_PAT = process.env.AIRTABLE_PAT;
           const AIRTABLE_BASE_ID = process.env.AIRTABLE_BASE_ID;
@@ -40,6 +41,27 @@ jobs:
               .toLowerCase()
               .replace(/[^a-z0-9]+/g, '-')
               .replace(/^-+|-+$/g, '');
+          }
+
+          function downloadImage(url, filepath) {
+            return new Promise((resolve, reject) => {
+              https.get(url, (res) => {
+                if (res.statusCode !== 200) {
+                  reject(new Error(`Failed to download image: ${res.statusCode}`));
+                  return;
+                }
+                
+                const fileStream = fs.createWriteStream(filepath);
+                res.pipe(fileStream);
+                
+                fileStream.on('finish', () => {
+                  fileStream.close();
+                  resolve();
+                });
+                
+                fileStream.on('error', reject);
+              }).on('error', reject);
+            });
           }
 
           function fetchAirtable(tableName) {
@@ -80,9 +102,19 @@ jobs:
                 console.log(`Fetching records from ${table}...`);
                 const response = await fetchAirtable(table);
                 
+                // Determine image directory based on table
+                const imageDir = table === 'Blog' ? 'images/blog' : 'images/announcements';
+                const imageDirPath = path.join(process.cwd(), imageDir);
+                
+                if (!fs.existsSync(imageDirPath)) {
+                  fs.mkdirSync(imageDirPath, { recursive: true });
+                }
+                
                 for (const record of response.records) {
                   const title = record.fields.title || record.fields.Title;
                   const content = record.fields.content || record.fields.Content;
+                  const featuredImage = record.fields['featured image'] || record.fields['Featured Image'];
+                  const createdTime = record.createdTime || new Date().toISOString();
                   
                   if (!title || !content) {
                     console.log(`Skipping record without title or content in ${table}`);
@@ -98,7 +130,41 @@ jobs:
                     continue;
                   }
                   
-                  fs.writeFileSync(filePath, content, 'utf8');
+                  let featureImagePath = '';
+                  
+                  // Download featured image if available
+                  if (featuredImage && featuredImage.length > 0) {
+                    const fullImage = featuredImage[0];
+                    const imageUrl = fullImage.thumbnails?.full?.url || fullImage.url;
+                    const originalFilename = fullImage.filename;
+                    const ext = path.extname(originalFilename);
+                    const baseName = path.basename(originalFilename, ext);
+                    
+                    // Add random string to avoid name clashes
+                    const randomStr = crypto.randomBytes(4).toString('hex');
+                    const uniqueFilename = `${baseName}-${randomStr}${ext}`;
+                    const imageFilePath = path.join(imageDirPath, uniqueFilename);
+                    
+                    try {
+                      await downloadImage(imageUrl, imageFilePath);
+                      featureImagePath = `${imageDir}/${uniqueFilename}`;
+                      console.log(`Downloaded image: ${uniqueFilename}`);
+                    } catch (error) {
+                      console.error(`Failed to download image for ${title}:`, error.message);
+                    }
+                  }
+                  
+                  // Create markdown content with frontmatter
+                  const date = new Date(createdTime).toISOString();
+                  const frontmatter = `---
+                    title: "${title}"
+                    date: ${date}${featureImagePath ? `
+                    featureImage: ${featureImagePath}` : ''}
+                    ---
+
+                    ${content}`;
+                  
+                  fs.writeFileSync(filePath, frontmatter, 'utf8');
                   console.log(`Created: ${fileName}`);
                 }
               } catch (error) {
@@ -115,7 +181,7 @@ jobs:
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          git add content/blog/
+          git add content/blog/ images/
           if git diff --staged --quiet; then
             echo "changes=false" >> $GITHUB_OUTPUT
           else
