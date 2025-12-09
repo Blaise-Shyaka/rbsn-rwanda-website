@@ -156,13 +156,14 @@ jobs:
                   
                   // Create markdown content with frontmatter
                   const date = new Date(createdTime).toISOString();
-                  const frontmatter = `---
-                    title: "${title}"
-                    date: ${date}${featureImagePath ? `
-                    featureImage: ${featureImagePath}` : ''}
-                    ---
-
-                    ${content}`;
+                  let frontmatter = '---\n';
+                  frontmatter += `title: "${title}"\n`;
+                  frontmatter += `date: ${date}\n`;
+                  if (featureImagePath) {
+                    frontmatter += `featureImage: ${featureImagePath}\n`;
+                  }
+                  frontmatter += '---\n\n';
+                  frontmatter += content;
                   
                   fs.writeFileSync(filePath, frontmatter, 'utf8');
                   console.log(`Created: ${fileName}`);
