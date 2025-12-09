@@ -34,7 +34,7 @@ jobs:
 
           const AIRTABLE_PAT = process.env.AIRTABLE_PAT;
           const AIRTABLE_BASE_ID = process.env.AIRTABLE_BASE_ID;
-          const TABLES = ['Blog', 'Announcements'];
+          const TABLES = ['Blogs', 'Announcements'];
 
           function toKebabCase(str) {
             return str
@@ -103,7 +103,7 @@ jobs:
                 const response = await fetchAirtable(table);
                 
                 // Determine image directory based on table
-                const imageDir = table === 'Blog' ? 'images/blog' : 'images/announcements';
+                const imageDir = table === 'Blog' ? 'static/images/blog' : 'static/images/announcements';
                 const imageDirPath = path.join(process.cwd(), imageDir);
                 
                 if (!fs.existsSync(imageDirPath)) {
