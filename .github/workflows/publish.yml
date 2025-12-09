@@ -34,7 +34,7 @@ jobs:
 
           const AIRTABLE_PAT = process.env.AIRTABLE_PAT;
           const AIRTABLE_BASE_ID = process.env.AIRTABLE_BASE_ID;
-          const TABLES = ['Blog', 'Announcements'];
+          const TABLES = ['Blogs', 'Announcements'];
 
           function toKebabCase(str) {
             return str
