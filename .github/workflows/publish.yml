@@ -159,11 +159,6 @@ jobs:
                   let frontmatter = '---\n';
                   frontmatter += `title: "${title}"\n`;
                   frontmatter += `date: ${date}\n`;
-                  if (content.length > 100) {
-                    frontmatter += `summary: ${content.substring(100)}\n`;
-                  } else {
-                    frontmatter += `summary: ${content}\n`;
-                  }
                 
                   if (featureImagePath) {
                     frontmatter += `featureImage: ${featureImagePath}\n`;
