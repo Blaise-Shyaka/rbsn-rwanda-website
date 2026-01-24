@@ -18,23 +18,33 @@
 <section class="announcements">
   <div class="container">
     <div class="row">
-      {{ range .Paginator.Pages }}
-      <div class="col-lg-4">
-        <article class="announcement-post">
-          <img src="{{ .Params.featureImage | absURL }}" alt="announcement-images">
-          <div class="announcement-content">
-            <h3><a href="{{ .Permalink }}">{{ .Title}}</a></h3>
-            <p> {{truncate 100 .Summary}} </p>
-            <a class="more" href="{{ .Permalink }}">Read more <span>⟶</span></a>
-          </div>
-        </article>
-      </div>
-      {{end}}
-      <div class="col-12">
-        <div class="announcement-pagination">
-          {{partial "pagination.html" . }}
+      {{ if .Paginator.Pages }}
+        {{ range .Paginator.Pages }}
+        <div class="col-lg-4">
+          <article class="announcement-post">
+            <img src="{{ .Params.featureImage | absURL }}" alt="announcement-images">
+            <div class="announcement-content">
+              <h3><a href="{{ .Permalink }}">{{ .Title}}</a></h3>
+              <p>{{truncate 100 .Plain}}</p>
+              <a class="more" href="{{ .Permalink }}">Read more <span>⟶</span></a>
+            </div>
+          </article>
         </div>
-      </div>
+        {{end}}
+        <div class="col-12">
+          <div class="announcement-pagination">
+            {{partial "pagination.html" . }}
+          </div>
+        </div>
+      {{ else }}
+        <div class="col-12 text-center">
+          <div class="empty-state">
+            <h3 class="mb-4">No Announcements Yet</h3>
+            <p class="mb-4">We haven't published any announcements yet.</p>
+            <p class="text-muted">Stay tuned for updates about our workshops, events, and important news from RBSN Rwanda.</p>
+          </div>
+        </div>
+      {{ end }}
     </div>
   </div>
 </section>
