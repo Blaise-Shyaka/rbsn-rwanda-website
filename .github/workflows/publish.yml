@@ -1,4 +1,4 @@
-name: Sync Airtable to Blog
+name: Sync Airtable to Announcements
 
 on:
   schedule:
@@ -90,7 +90,7 @@ jobs:
           }
 
           async function processRecords() {
-            const contentDir = path.join(process.cwd(), 'content', 'blog');
+            const contentDir = path.join(process.cwd(), 'content', 'announcements');
             
             // Create directory if it doesn't exist
             if (!fs.existsSync(contentDir)) {
@@ -103,7 +103,7 @@ jobs:
                 const response = await fetchAirtable(table);
                 
                 // Determine image directory based on table
-                const imageDir = table === 'Blogs' ? 'images/blog' : 'images/announcements';
+                const imageDir = 'images/announcements';
                 const imageDirPath = path.join(process.cwd(), 'static', imageDir);
                 
                 if (!fs.existsSync(imageDirPath)) {
@@ -160,9 +160,9 @@ jobs:
                   frontmatter += `title: "${title}"\n`;
                   frontmatter += `date: ${date}\n`;
                   if (content.length > 100) {
-                    frontmatter += `summary: ${content.substring(100)}\n`
+                    frontmatter += `summary: ${content.substring(100)}\n`;
                   } else {
-                    frontmatter += `summary: ${content}\n`
+                    frontmatter += `summary: ${content}\n`;
                   }
                 
                   if (featureImagePath) {
@@ -188,11 +188,11 @@ jobs:
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          git add content/blog/ static/images/
+          git add content/announcements/ static/images/
           if git diff --staged --quiet; then
             echo "changes=false" >> $GITHUB_OUTPUT
           else
-            git commit -m "Update blog content from Airtable"
+            git commit -m "Update announcements content from Airtable"
             git push
             echo "changes=true" >> $GITHUB_OUTPUT
           fi
