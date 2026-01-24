@@ -15,14 +15,14 @@
   </div>
 </section>
 
-<section class="blog">
+<section class="announcements">
   <div class="container">
     <div class="row">
       {{ range .Paginator.Pages }}
       <div class="col-lg-4">
-        <article class="blog-post">
-          <img src="{{ .Params.featureImage | absURL }}" alt="blog-images">
-          <div class="blog-content">
+        <article class="announcement-post">
+          <img src="{{ .Params.featureImage | absURL }}" alt="announcement-images">
+          <div class="announcement-content">
             <h3><a href="{{ .Permalink }}">{{ .Title}}</a></h3>
             <p> {{truncate 100 .Summary}} </p>
             <a class="more" href="{{ .Permalink }}">Read more <span>⟶</span></a>
@@ -31,7 +31,7 @@
       </div>
       {{end}}
       <div class="col-12">
-        <div class="blog-pagination">
+        <div class="announcement-pagination">
           {{partial "pagination.html" . }}
         </div>
       </div>

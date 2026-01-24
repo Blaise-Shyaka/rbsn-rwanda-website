@@ -19,8 +19,8 @@ title = 'RBSN | Rwanda Biotechnology Students Network'
   url= "/about/"
   weight = 3
   [[menu.Main]]
-  name = "Blog"
-  url= "#blog"
+  name = "Announcements"
+  url= "#announcements"
   weight = 4
   [[menu.Main]]
   name = "FAQ"
@@ -29,7 +29,7 @@ title = 'RBSN | Rwanda Biotechnology Students Network'
 
 [params]
   # theme_overrides = "css/overrides.css"
-  aboutPageURL = "blog"
+  aboutPageURL = "announcements"
   contactLink = "contact"
   copyright = "© {year} <a href=\"https://rbsnrwanda.com/\" target=\"_blank\">RBSN Rwanda</a>"
   fabFormURL =  "https://fabform.io/f/u00kv3-"

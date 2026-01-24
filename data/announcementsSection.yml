@@ -3,5 +3,5 @@ enable: true
 title: "Latest Events and News"
 subtitle: >
           Stay updated with our latest workshops, guest lectures, and scientific discussions.
-buttonTarget: blog
+buttonTarget: announcements
 ---
