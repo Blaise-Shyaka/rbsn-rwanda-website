@@ -1,8 +1,8 @@
 ---
-title: "The Difference Between Meeting and Connecting"
-date: 2022-01-06T11:17:17+06:00
-featureImage: images/blog/blog-thumb-3.jpg
-tags: ["Marketing", "Web Design"]
+title: "The Similarities Between Famous Writers"
+date: 2022-01-06T11:18:32+06:00
+featureImage: images/announcements/blog-thumb-1.jpg
+tags: ["Marketing","News", "Web Design"]
 ---
   Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate eius eum dolor voluptatum autem minima magni soluta reiciendis corrupti, iste odio, minus odit voluptates rerum veritatis nam vel! Odio, totam?
 

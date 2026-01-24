@@ -1,6 +1,6 @@
-{{with .Site.Data.blogSection}}
+{{with .Site.Data.announcementsSection}}
 {{if .enable}}
-<section class="blog" id="blog">
+<section class="announcements" id="announcements">
   <div class="container">
     <div class="row">
       <div class="col-12">
@@ -13,11 +13,11 @@
       </div>
     </div>
     <div class="row justify-content-center">
-      {{ range first 3 (where $.Site.RegularPages "Type" "blog") }}
+      {{ range first 3 (where $.Site.RegularPages "Type" "announcements") }}
       <div class="col-lg-4 col-md-6">
-        <article class="blog-post">
-          <img src="{{ .Params.featureImage | absURL }}" alt="blog-images">
-          <div class="blog-content">
+        <article class="announcement-post">
+          <img src="{{ .Params.featureImage | absURL }}" alt="announcement-images">
+          <div class="announcement-content">
             <h3><a href="{{ .Permalink }}">{{.Title}}</a></h3>
             <p>{{ truncate 75 .Summary }}</p>
             <a class="more" href="{{ .Permalink }}">Read more <span>⟶</span></a>
@@ -26,7 +26,7 @@
       </div>
       {{end}}
       <div class="col-12 text-center">
-        <a href="{{.buttonTarget | absURL}}" class="btn btn-primary">View blog page</a>
+        <a href="{{.buttonTarget | absURL}}" class="btn btn-primary">View announcements page</a>
       </div>
     </div>
   </div>

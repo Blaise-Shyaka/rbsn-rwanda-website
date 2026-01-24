@@ -41,8 +41,8 @@ $(document).ready(function () {
     byRow: 0,
   });
 
-  // .blog-content Match Height
-  $(".blog-content").matchHeight({
+  // .announcement-content Match Height
+  $(".announcement-content").matchHeight({
     byRow: 0,
   });
   $(".story-slider").slick({
