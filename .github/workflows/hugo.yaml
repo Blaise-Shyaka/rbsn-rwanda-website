@@ -81,10 +81,11 @@ jobs:
             hugo-
       - name: Build the site
         run: |
+          HTTPS_BASE_URL=$(echo "${{ steps.pages.outputs.base_url }}/" | sed 's|^http://|https://|')
           hugo \
             --gc \
             --minify \
-            --baseURL "${{ steps.pages.outputs.base_url }}/" \
+            --baseURL "${HTTPS_BASE_URL}" \
             --cacheDir "${{ runner.temp }}/hugo_cache"
       - name: Cache save
         id: cache-save
