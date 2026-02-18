@@ -1,7 +1,7 @@
 ---
 title: "NEW SEMESTER LAUNCH"
 date: 2026-02-18T13:57:58.000Z
-featureImage: images/announcements/pic.1-aeecb99a.jpeg
+featureImage: images/announcements/aflatoxin-flyer.png
 ---
 
 # Aflatoxin Testing Workshop
