@@ -1,5 +1,5 @@
 ---
-title: "NEW SEMESTER LAUNCH"
+title: "Announcing Aflatoxin"
 date: 2026-02-18T13:57:58.000Z
 featureImage: images/announcements/aflatoxin-flyer.png
 ---
